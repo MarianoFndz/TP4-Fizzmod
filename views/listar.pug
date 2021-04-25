@@ -1,0 +1,42 @@
+html 
+	head
+		title Productos | Fizzmod
+		link(rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous")
+	body 
+		nav(class="navbar navbar-expand-lg navbar-dark bg-dark")
+			a(class="navbar-brand" href="/") Productos
+			button(class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation")
+				span(class="navbar-toggler-icon")
+			div(class="collapse navbar-collapse" id="navbarNav")
+				ul(class="navbar-nav")
+					li(class="nav-item active")
+						a(class="nav-link" href="#") Listar 
+							span(class="sr-only") (current)
+					li(class="nav-item")
+						a(class="nav-link" href="#") Add email
+		div(class="container")
+			div(class="row")
+					table(class="table table-striped table-dark col-xl- mt-5")
+						thead
+							tr
+								th(scope="col") 
+								th(scope="col") Nombre
+								th(scope="col") Precio
+								th(scope="col") Descripcion
+								th(scope="col") Foto
+						tbody
+							-let contador = 0
+							each producto in allProducts  
+								tr 
+									-contador++
+									th(scope="row")= contador
+									td= producto.name
+									td= producto.price
+									td= producto.description
+									td 
+										img(alt="" weight="100px" height="100px" src=`${producto.img}`)
+				
+			
+
+
+			
