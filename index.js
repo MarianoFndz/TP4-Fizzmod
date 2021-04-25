@@ -6,39 +6,39 @@ import logger from "morgan"
 import databaseConnection from "./database/config.js"
 import path from 'path';
 import { fileURLToPath } from 'url';
-//import bodyParser from "body-parser"
+import compression from "compression"
+import addInfoDat from "./utils/addInfoDat.js"
 
-import ProductModel from "./models/ProductModel.js"
-import { assert } from "console"
+import {
+	indexRouter,
+	entryRouter,
+	listRouter,
+	emailRouter
+} from "./routes/index.js"
+
 
 databaseConnection()
+
+	; (async () => {
+		await addInfoDat()
+	}
+	)();
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 const app = express()
 
-//app.use(bodyParser.urlencoded({ extended: true }));
+app.use(compression())
 app.use(express.urlencoded({ extended: true }))
+app.use(express.json())
 app.use(logger("dev"))
 app.use(express.static(path.join(__dirname, "public")))
 app.set("view engine", "pug");
 app.set("views", path.join(__dirname, "views"))
 
-app.get("/", (req, res) => {
-	res.status(200).render("index")
-})
-
-app.post("/ingreso", async ({ body } = req, res) => {
-	console.log(body)
-	const newProduct = new ProductModel(body)
-	await ProductModel.create(newProduct)
-	res.redirect('/listar')
-})
-
-app.get("/listar", async (req, res) => {
-	const allProducts = await ProductModel.find()
-
-	res.status(200).render("listar", { allProducts })
-})
+app.use("/", indexRouter)
+app.use("/ingreso", entryRouter)
+app.use("/listar", listRouter)
+app.use("/set-correo", emailRouter)
 
 app.listen(3000)
