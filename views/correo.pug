@@ -1,6 +1,7 @@
+doctype html
 html 
 	head
-		title Productos | Fizzmod
+		title Correo | Fizzmod
 		link(rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous")
 	body 
 		nav(class="navbar navbar-expand-lg navbar-dark bg-dark")
@@ -9,35 +10,18 @@ html
 				span(class="navbar-toggler-icon")
 			div(class="collapse navbar-collapse" id="navbarNav")
 				ul(class="navbar-nav")
-					li(class="nav-item active")
+					li(class="nav-item")
 						a(class="nav-link" href="/listar") Listar 
 							span(class="sr-only") 
-					li(class="nav-item")
-						a(class="nav-link" href="/set-correo") Add email
+					li(class="nav-item active")
+						a(class="nav-link" href="/asdas") Add email
 							span(class="sr-only") 
 		div(class="container")
-			div(class="row")
-					table(class="table table-striped table-dark col-xl- mt-5")
-						thead
-							tr
-								th(scope="col") 
-								th(scope="col") Nombre
-								th(scope="col") Precio
-								th(scope="col") Descripcion
-								th(scope="col") Foto
-						tbody
-							-let contador = 0
-							each producto in allProducts  
-								tr 
-									-contador++
-									th(scope="row")= contador
-									td= producto.name
-									td= producto.price
-									td= producto.description
-									td 
-										img(alt="" weight="100px" height="100px" src=`${producto.img}`)
-				
-			
-
-
-			
+			div(class="row justify-content-md-center mt-5")
+				form(method="POST" action="/set-correo")
+					h4(class="text-center mb-3") Agregar correo
+					div(class="form-group")
+						label(for="name") Email
+						input(type="email" class="form-control" id="email" name="email" placeholder="Email...")
+					div
+						button(type="submit" class="btn btn-primary mb-2") Submit
