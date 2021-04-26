@@ -10,6 +10,7 @@ import compression from "compression"
 import correoService from "./services/correoService.js"
 import https from 'https'
 import fs from 'fs'
+import cors from "cors"
 
 import {
 	indexRouter,
@@ -30,6 +31,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 const app = express()
 
+app.use(cors())
 app.use(compression())
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
@@ -50,9 +52,10 @@ const key = fs.readFileSync(__dirname + '/selfsigned.key');
 const cert = fs.readFileSync(__dirname + '/selfsigned.crt');
 
 const options = {
-	key: key,
-	cert: cert
+	key: key.toString(),
+	cert: cert.toString()
 };
+console.log(options)
 
 const server = https.createServer(options, app);
 
