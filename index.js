@@ -8,6 +8,8 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import compression from "compression"
 import correoService from "./services/correoService.js"
+import https from 'https'
+import fs from 'fs'
 
 import {
 	indexRouter,
@@ -44,11 +46,8 @@ app.use("/set-correo", emailRouter)
 
 const PORT = process.env.PORT || 3000
 
-const https = require('https');
-const fs = require('fs');
-
-const key = fs.readFileSync(__dirname + '/../certs/selfsigned.key');
-const cert = fs.readFileSync(__dirname + '/../certs/selfsigned.crt');
+const key = fs.readFileSync(__dirname + '/selfsigned.key');
+const cert = fs.readFileSync(__dirname + '/selfsigned.crt');
 
 const options = {
 	key: key,
