@@ -44,4 +44,20 @@ app.use("/set-correo", emailRouter)
 
 const PORT = process.env.PORT || 3000
 
-app.listen(PORT)
+const https = require('https');
+const fs = require('fs');
+
+const key = fs.readFileSync(__dirname + '/../certs/selfsigned.key');
+const cert = fs.readFileSync(__dirname + '/../certs/selfsigned.crt');
+
+const options = {
+	key: key,
+	cert: cert
+};
+
+const server = https.createServer(options, app);
+
+server.listen(PORT, () => {
+	console.log("server starting on port : " + PORT)
+});
+
