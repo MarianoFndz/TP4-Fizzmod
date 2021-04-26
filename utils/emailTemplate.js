@@ -9,7 +9,6 @@ export default function registerTemplate(products) {
 		</tr>
 	`)
 	const namesString = "".concat(...names)
-	console.log(namesString)
 
 	return `
         <html>

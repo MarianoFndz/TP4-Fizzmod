@@ -1,13 +1,9 @@
-import ProductModel from "../models/ProductModel.js"
 import { Router } from "express"
+import listController from "../controllers/listController.js"
 
 const router = Router()
 
-router.get("/", async (req, res) => {
-	const allProducts = await ProductModel.find()
-
-	res.status(200).render("listar", { allProducts })
-})
+router.get("/", listController.renderView)
 
 
 export default router

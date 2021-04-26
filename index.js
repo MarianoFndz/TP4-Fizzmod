@@ -7,7 +7,7 @@ import databaseConnection from "./database/config.js"
 import path from 'path';
 import { fileURLToPath } from 'url';
 import compression from "compression"
-import addInfoDat from "./utils/addInfoDat.js"
+import correoService from "./services/correoService.js"
 
 import {
 	indexRouter,
@@ -20,7 +20,7 @@ import {
 databaseConnection()
 
 	; (async () => {
-		await addInfoDat()
+		await correoService.addInitializationCorreoDat()
 	}
 	)();
 
@@ -33,6 +33,7 @@ app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
 app.use(logger("dev"))
 app.use(express.static(path.join(__dirname, "public")))
+
 app.set("view engine", "pug");
 app.set("views", path.join(__dirname, "views"))
 

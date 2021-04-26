@@ -1,21 +1,10 @@
 import { Router } from "express"
-import fs from "fs"
-import readInfoDat from "../utils/readInfoDat.js"
-
-const fsp = fs.promises
+import emailController from "../controllers/emailController.js"
 
 const router = Router()
 
-router.post("/", async (req, res) => {
-	const email = req.body.email
+router.post("/", emailController.addEmail)
 
-	console.log(email, process.cwd())
-	await fsp.appendFile(`${process.cwd()}/correo.dat`, `/${email}`)
-	res.status(200).end()
-})
-
-router.get("/", (req, res) => {
-	res.status(200).render("correo")
-})
+router.get("/", emailController.renderView)
 
 export default router
